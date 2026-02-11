@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "learning-support-mobile-react",
-    "slug": "learning-support-mobile-react",
+    "name": "Learning Support",
+    "slug": "learning-support",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -19,7 +19,8 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.amuhajirs.learning_support"
     },
     "web": {
       "output": "static",
@@ -43,6 +44,13 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "2de49e0c-da4d-43d8-b47b-4440f8906c9c"
+      }
+    },
+    "owner": "amuhajirs"
   }
 }
