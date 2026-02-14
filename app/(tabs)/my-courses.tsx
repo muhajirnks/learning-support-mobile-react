@@ -12,11 +12,11 @@ import {
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { getCourses } from "@/services/course.service";
+import { getMyCourses } from "@/services/course.service";
 import { getCategories } from "@/services/category.service";
 import { Course, Category } from "@/services/types";
 
-export default function ExploreScreen() {
+export default function MyCoursesScreen() {
    const [courses, setCourses] = useState<Course[]>([]);
    const [categories, setCategories] = useState<Category[]>([]);
    const [selectedCategory, setSelectedCategory] = useState<string | null>(
@@ -40,7 +40,7 @@ export default function ExploreScreen() {
       }
    };
 
-   const fetchCourses = async (pageNum = 1, isLoadMore = false) => {
+   const fetchMyCourses = async (pageNum = 1, isLoadMore = false) => {
       if (pageNum === 1) {
          setLoading(true);
       } else {
@@ -48,9 +48,8 @@ export default function ExploreScreen() {
       }
 
       try {
-         const response = await getCourses({
+         const response = await getMyCourses({
             search,
-            category: selectedCategory || undefined,
             page: pageNum,
             limit: 10,
          });
@@ -59,11 +58,20 @@ export default function ExploreScreen() {
             const newData = response.data;
             const pagination = response.meta;
 
+            // Filter by category client-side if needed, but better if API supports it
+            // For now, let's assume API might not support category on /my, or we handle it here
+            let filteredData = newData;
+            if (selectedCategory) {
+               filteredData = newData.filter(
+                  (c) => c.category?._id === selectedCategory,
+               );
+            }
+
             if (isLoadMore) {
-               setCourses((prev) => [...prev, ...newData]);
+               setCourses((prev) => [...prev, ...filteredData]);
                setPage(pageNum);
             } else {
-               setCourses(newData);
+               setCourses(filteredData);
                setPage(1);
             }
 
@@ -88,7 +96,7 @@ export default function ExploreScreen() {
    useEffect(() => {
       const delayDebounceFn = setTimeout(() => {
          setHasMore(true);
-         fetchCourses(1, false);
+         fetchMyCourses(1, false);
       }, 500);
 
       return () => clearTimeout(delayDebounceFn);
@@ -96,7 +104,7 @@ export default function ExploreScreen() {
 
    const handleLoadMore = () => {
       if (!loading && !loadingMore && hasMore && courses.length > 0) {
-         fetchCourses(page + 1, true);
+         fetchMyCourses(page + 1, true);
       }
    };
 
@@ -130,7 +138,7 @@ export default function ExploreScreen() {
          style={styles.courseCard}
          onPress={() =>
             router.push({
-               pathname: "/course/[courseId]",
+               pathname: "/learning/[courseId]",
                params: { courseId: item._id },
             })
          }
@@ -143,16 +151,18 @@ export default function ExploreScreen() {
             <Text style={styles.instructor}>
                {item.instructor?.name || "Instructor"}
             </Text>
-            <View style={styles.priceRow}>
-               <Text style={styles.price}>
-                  {item.price === 0
-                     ? "Gratis"
-                     : `Rp ${item.price.toLocaleString()}`}
-               </Text>
-               <View style={styles.ratingRow}>
-                  <MaterialIcons name="star" size={16} color="#f59e0b" />
-                  <Text style={styles.ratingText}>{item.rating || "4.5"}</Text>
+            <View style={styles.progressContainer}>
+               <View style={styles.progressBar}>
+                  <View
+                     style={[
+                        styles.progressFill,
+                        { width: `${item.progressPercentage || 0}%` },
+                     ]}
+                  />
                </View>
+               <Text style={styles.progressText}>
+                  {item.progressPercentage || 0}%
+               </Text>
             </View>
          </View>
       </TouchableOpacity>
@@ -164,7 +174,7 @@ export default function ExploreScreen() {
             <MaterialIcons name="search" size={20} color="#94a3b8" />
             <TextInput
                style={styles.searchInput}
-               placeholder="Cari kursus menarik..."
+               placeholder="Cari kursus saya..."
                value={search}
                onChangeText={setSearch}
             />
@@ -211,16 +221,16 @@ export default function ExploreScreen() {
                ListEmptyComponent={
                   <View style={styles.emptyContainer}>
                      <MaterialIcons
-                        name="search-off"
+                        name="play-circle-outline"
                         size={64}
                         color="#e2e8f0"
                      />
                      <Text style={styles.emptyText}>
-                        Tidak menemukan kursus yang sesuai.
+                        Belum ada kursus yang diambil.
                      </Text>
                   </View>
                }
-               onRefresh={() => fetchCourses(1, false)}
+               onRefresh={() => fetchMyCourses(1, false)}
                refreshing={loading}
                onEndReached={handleLoadMore}
                onEndReachedThreshold={0.5}
@@ -294,26 +304,24 @@ const styles = StyleSheet.create({
       paddingTop: 0,
    },
    courseCard: {
-      flexDirection: "row",
       backgroundColor: "#fff",
-      borderRadius: 12,
+      borderRadius: 16,
       marginBottom: 15,
       overflow: "hidden",
-      elevation: 2,
-      shadowColor: "#000",
-      shadowOffset: { width: 0, height: 1 },
-      shadowOpacity: 0.1,
-      shadowRadius: 2,
+      borderWidth: 1,
+      borderColor: "#e2e8f0",
+      flexDirection: "row",
+      elevation: 1,
    },
    thumbnail: {
-      width: 100,
-      height: 100,
+      width: 120,
+      height: 90,
       backgroundColor: "#f1f5f9",
    },
    courseInfo: {
       flex: 1,
       padding: 12,
-      justifyContent: "space-between",
+      justifyContent: "center",
    },
    courseTitle: {
       fontSize: 15,
@@ -325,27 +333,29 @@ const styles = StyleSheet.create({
       fontSize: 13,
       color: "#64748b",
       marginTop: 2,
+      marginBottom: 8,
    },
-   priceRow: {
-      flexDirection: "row",
-      justifyContent: "space-between",
-      alignItems: "center",
-      marginTop: 8,
-   },
-   price: {
-      fontSize: 14,
-      fontWeight: "700",
-      color: "#3b82f6",
-   },
-   ratingRow: {
+   progressContainer: {
       flexDirection: "row",
       alignItems: "center",
    },
-   ratingText: {
+   progressBar: {
+      flex: 1,
+      height: 6,
+      backgroundColor: "#f1f5f9",
+      borderRadius: 3,
+      overflow: "hidden",
+   },
+   progressFill: {
+      height: "100%",
+      backgroundColor: "#10b981",
+   },
+   progressText: {
       fontSize: 12,
       fontWeight: "600",
-      color: "#f59e0b",
-      marginLeft: 4,
+      color: "#64748b",
+      marginLeft: 8,
+      width: 35,
    },
    emptyContainer: {
       alignItems: "center",

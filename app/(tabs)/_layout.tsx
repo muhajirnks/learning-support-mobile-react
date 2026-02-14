@@ -1,35 +1,77 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-
-import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { Tabs } from "expo-router";
+import React from "react";
+import { MaterialIcons } from "@expo/vector-icons";
+import { useColorScheme } from "@/hooks/use-color-scheme";
+import { Colors } from "@/constants/theme";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+   const colorScheme = useColorScheme();
 
-  return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
-      />
-    </Tabs>
-  );
+   return (
+      <Tabs
+         screenOptions={{
+            tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+            headerShown: true,
+            tabBarStyle: {
+               height: 60,
+               paddingBottom: 10,
+            },
+         }}
+      >
+         <Tabs.Screen
+            name="index"
+            options={{
+               title: "Dashboard",
+               tabBarLabel: "Home",
+               tabBarIcon: ({ color }) => (
+                  <MaterialIcons size={28} name="dashboard" color={color} />
+               ),
+            }}
+         />
+         <Tabs.Screen
+            name="explore"
+            options={{
+               title: "Cari Kursus",
+               tabBarLabel: "Explore",
+               tabBarIcon: ({ color }) => (
+                  <MaterialIcons size={28} name="search" color={color} />
+               ),
+            }}
+         />
+         <Tabs.Screen
+            name="my-courses"
+            options={{
+               title: "Kursus Saya",
+               tabBarLabel: "Kursus",
+               tabBarIcon: ({ color }) => (
+                  <MaterialIcons
+                     size={28}
+                     name="play-circle-fill"
+                     color={color}
+                  />
+               ),
+            }}
+         />
+         <Tabs.Screen
+            name="transactions"
+            options={{
+               title: "Riwayat Transaksi",
+               tabBarLabel: "Transaksi",
+               tabBarIcon: ({ color }) => (
+                  <MaterialIcons size={28} name="history" color={color} />
+               ),
+            }}
+         />
+         <Tabs.Screen
+            name="settings"
+            options={{
+               title: "Pengaturan",
+               tabBarLabel: "Settings",
+               tabBarIcon: ({ color }) => (
+                  <MaterialIcons size={28} name="person" color={color} />
+               ),
+            }}
+         />
+      </Tabs>
+   );
 }
