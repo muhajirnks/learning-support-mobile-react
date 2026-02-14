@@ -1,10 +1,16 @@
 import api from "./api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuthStore } from "@/store/useAuthStore";
-import { LoginResponse, RegisterResponse, DataResponse, User } from "./types";
+import {
+   LoginResponse,
+   DataResponse,
+   User,
+   LoginRequest,
+   RegisterRequest,
+} from "./types";
 
-export const login = async (data: any): Promise<LoginResponse> => {
-   const response = await api.post("/auth/login", data);
+export const login = async (data: LoginRequest) => {
+   const response = await api.post<LoginResponse>("/auth/login", data);
    const { token, data: user } = response.data;
    const accessToken = token?.accessToken;
 
@@ -21,12 +27,12 @@ export const login = async (data: any): Promise<LoginResponse> => {
    return response.data;
 };
 
-export const register = async (data: any): Promise<RegisterResponse> => {
-   const response = await api.post("/auth/register", data);
+export const register = async (data: RegisterRequest) => {
+   const response = await api.post<DataResponse<User>>("/auth/register", data);
    return response.data;
 };
 
-export const getProfile = async (): Promise<DataResponse<User>> => {
-   const response = await api.get("/auth/profile");
+export const getProfile = async () => {
+   const response = await api.get<DataResponse<User>>("/auth/profile");
    return response.data;
 };

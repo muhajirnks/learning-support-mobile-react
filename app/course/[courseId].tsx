@@ -16,6 +16,7 @@ import { getCourseById } from "@/services/course.service";
 import { getLessonsByCourse } from "@/services/lesson.service";
 import { Course, Lesson } from "@/services/types";
 import api from "@/services/api";
+import { createTransaction } from "@/services/transaction.service";
 
 export default function CourseDetailScreen() {
    const { courseId } = useLocalSearchParams<{ courseId: string }>();
@@ -72,7 +73,10 @@ export default function CourseDetailScreen() {
 
       setEnrolling(true);
       try {
-         await api.post("/transactions", { courseId });
+         createTransaction({
+            course: courseId,
+            paymentMethod: "Manual Transfer",
+         });
          Alert.alert("Sukses", "Berhasil mendaftar kursus!", [
             { text: "OK", onPress: () => fetchCourseDetail() },
          ]);

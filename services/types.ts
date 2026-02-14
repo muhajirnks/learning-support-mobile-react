@@ -75,13 +75,30 @@ export interface LoginResponse {
    data: User;
 }
 
-export interface RegisterResponse {
-   message?: string;
-   data: User;
-}
-
 export interface PaginationResponse<T> {
    message?: string;
    data: T[];
    meta?: PaginationMeta;
+}
+
+export interface LoginRequest {
+   email: string;
+   password: string;
+}
+
+export interface RegisterRequest {
+   name: string;
+   email: string;
+   password: string;
+}
+
+export interface CreateTransactionRequest {
+   course: string;
+   paymentMethod: "Manual Transfer";
+}
+
+export interface UserStats {
+   totalCourses: number;
+   completedCourses: number;
+   totalTransactions: number;
 }

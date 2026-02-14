@@ -33,7 +33,7 @@ export default function RegisterScreen() {
 
       setLoading(true);
       try {
-         await register({ name, email, password, role: "user" });
+         await register({ name, email, password });
          Alert.alert("Berhasil", "Akun berhasil dibuat. Silakan masuk.", [
             { text: "OK", onPress: () => router.replace("/login") },
          ]);
