@@ -57,11 +57,11 @@ export default function TransactionsScreen() {
    const getStatusConfig = (status: Transaction["status"]) => {
       switch (status) {
          case "success":
-            return { label: "Berhasil", color: "#10b981", bgColor: "#ecfdf5" };
+            return { label: "Success", color: "#10b981", bgColor: "#ecfdf5" };
          case "pending":
-            return { label: "Menunggu", color: "#f59e0b", bgColor: "#fffbeb" };
+            return { label: "Pending", color: "#f59e0b", bgColor: "#fffbeb" };
          case "failed":
-            return { label: "Gagal", color: "#ef4444", bgColor: "#fef2f2" };
+            return { label: "Failed", color: "#ef4444", bgColor: "#fef2f2" };
          default:
             return { label: status, color: "#64748b", bgColor: "#f8fafc" };
       }
@@ -73,7 +73,7 @@ export default function TransactionsScreen() {
          <View style={styles.card}>
             <View style={styles.cardHeader}>
                <Text style={styles.date}>
-                  {new Date(item.createdAt).toLocaleDateString("id-ID", {
+                  {new Date(item.createdAt).toLocaleDateString("en-US", {
                      day: "2-digit",
                      month: "short",
                      year: "numeric",
@@ -92,12 +92,12 @@ export default function TransactionsScreen() {
             </View>
 
             <Text style={styles.courseTitle}>
-               {item.course?.title || "Kursus"}
+               {item.course?.title || "Course"}
             </Text>
 
             <View style={styles.cardFooter}>
                <View>
-                  <Text style={styles.label}>Metode</Text>
+                  <Text style={styles.label}>Method</Text>
                   <Text style={styles.value}>
                      {item.paymentMethod.toUpperCase()}
                   </Text>
@@ -121,25 +121,25 @@ export default function TransactionsScreen() {
                   style={[styles.filterChip, status === "" && styles.filterChipActive]}
                   onPress={() => setStatus("")}
                >
-                  <Text style={[styles.filterChipText, status === "" && styles.filterChipTextActive]}>Semua</Text>
+                  <Text style={[styles.filterChipText, status === "" && styles.filterChipTextActive]}>All</Text>
                </TouchableOpacity>
                <TouchableOpacity 
                   style={[styles.filterChip, status === "success" && styles.filterChipActive]}
                   onPress={() => setStatus("success")}
                >
-                  <Text style={[styles.filterChipText, status === "success" && styles.filterChipTextActive]}>Berhasil</Text>
+                  <Text style={[styles.filterChipText, status === "success" && styles.filterChipTextActive]}>Success</Text>
                </TouchableOpacity>
                <TouchableOpacity 
                   style={[styles.filterChip, status === "pending" && styles.filterChipActive]}
                   onPress={() => setStatus("pending")}
                >
-                  <Text style={[styles.filterChipText, status === "pending" && styles.filterChipTextActive]}>Menunggu</Text>
+                  <Text style={[styles.filterChipText, status === "pending" && styles.filterChipTextActive]}>Pending</Text>
                </TouchableOpacity>
                <TouchableOpacity 
                   style={[styles.filterChip, status === "failed" && styles.filterChipActive]}
                   onPress={() => setStatus("failed")}
                >
-                  <Text style={[styles.filterChipText, status === "failed" && styles.filterChipTextActive]}>Gagal</Text>
+                  <Text style={[styles.filterChipText, status === "failed" && styles.filterChipTextActive]}>Failed</Text>
                </TouchableOpacity>
             </ScrollView>
 
@@ -150,7 +150,7 @@ export default function TransactionsScreen() {
                >
                   <Ionicons name="calendar-outline" size={16} color="#64748b" />
                   <Text style={styles.dateInputText}>
-                     {startDate ? startDate.toLocaleDateString('id-ID') : 'Mulai'}
+                     {startDate ? startDate.toLocaleDateString('en-US') : 'Start'}
                   </Text>
                </TouchableOpacity>
 
@@ -162,7 +162,7 @@ export default function TransactionsScreen() {
                >
                   <Ionicons name="calendar-outline" size={16} color="#64748b" />
                   <Text style={styles.dateInputText}>
-                     {endDate ? endDate.toLocaleDateString('id-ID') : 'Selesai'}
+                     {endDate ? endDate.toLocaleDateString('en-US') : 'End'}
                   </Text>
                </TouchableOpacity>
 
@@ -224,7 +224,7 @@ export default function TransactionsScreen() {
                         color="#e2e8f0"
                      />
                      <Text style={styles.emptyText}>
-                        Belum ada riwayat transaksi.
+                        There is no transaction history yet.
                      </Text>
                   </View>
                }

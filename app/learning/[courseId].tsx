@@ -80,13 +80,13 @@ export default function LearningScreen() {
          <View style={styles.centered}>
             <MaterialIcons name="error-outline" size={48} color="#ef4444" />
             <Text style={styles.errorText}>
-               Kursus tidak ditemukan atau gagal memuat progres.
+               Course not found or failed to load progress.
             </Text>
             <TouchableOpacity
                style={styles.backButton}
                onPress={() => router.back()}
             >
-               <Text style={styles.backButtonText}>Kembali</Text>
+               <Text style={styles.backButtonText}>Back</Text>
             </TouchableOpacity>
          </View>
       );
@@ -94,12 +94,12 @@ export default function LearningScreen() {
 
    return (
       <View style={styles.container}>
-         <Stack.Screen options={{ title: course?.title || "Belajar" }} />
+         <Stack.Screen options={{ title: course?.title || "Learning" }} />
 
          <View style={styles.tabBar}>
             <View style={styles.progressHeader}>
                <View style={styles.progressInfo}>
-                  <Text style={styles.progressLabel}>Progres Belajar</Text>
+                  <Text style={styles.progressLabel}>Learning Progress</Text>
                   <Text style={styles.progressValue}>
                      {progress.percentage}%
                   </Text>
@@ -113,8 +113,8 @@ export default function LearningScreen() {
                   />
                </View>
                <Text style={styles.lessonCount}>
-                  {progress.completedLessons} dari {progress.totalLessons}{" "}
-                  materi selesai
+                  {progress.completedLessons} of {progress.totalLessons}{" "}
+                  lessons completed
                </Text>
             </View>
             <ScrollView
@@ -189,7 +189,7 @@ export default function LearningScreen() {
                </View>
             ) : (
                <View style={styles.noActiveLesson}>
-                  <Text>Pilih pelajaran untuk mulai belajar</Text>
+                  <Text>Select a lesson to start learning</Text>
                </View>
             )}
          </ScrollView>
@@ -213,7 +213,7 @@ export default function LearningScreen() {
                   color="#fff"
                />
                <Text style={styles.completeButtonText}>
-                  {activeLesson?.isCompleted ? "Selesai" : "Tandai Selesai"}
+                  {activeLesson?.isCompleted ? "Completed" : "Mark as Completed"}
                </Text>
             </TouchableOpacity>
          </View>

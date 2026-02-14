@@ -19,7 +19,7 @@ export default function LoginScreen() {
 
    const handleLogin = async () => {
       if (!email || !password) {
-         Alert.alert("Error", "Email dan password harus diisi");
+         Alert.alert("Error", "Email and password are required");
          return;
       }
 
@@ -30,8 +30,8 @@ export default function LoginScreen() {
       } catch (error: any) {
          console.error(error);
          Alert.alert(
-            "Login Gagal",
-            error.response?.data?.message || "Terjadi kesalahan",
+            "Login Failed",
+            error.response?.data?.message || "An error occurred",
          );
       } finally {
          setLoading(false);
@@ -41,15 +41,15 @@ export default function LoginScreen() {
    return (
       <View style={styles.container}>
          <View style={styles.header}>
-            <Text style={styles.title}>Selamat Datang!</Text>
-            <Text style={styles.subtitle}>Masuk untuk melanjutkan belajar</Text>
+            <Text style={styles.title}>Welcome Back!</Text>
+            <Text style={styles.subtitle}>Sign in to continue learning</Text>
          </View>
 
          <View style={styles.form}>
             <Text style={styles.label}>Email</Text>
             <TextInput
                style={styles.input}
-               placeholder="Masukkan email"
+               placeholder="Enter your email"
                value={email}
                onChangeText={setEmail}
                keyboardType="email-address"
@@ -59,7 +59,7 @@ export default function LoginScreen() {
             <Text style={styles.label}>Password</Text>
             <TextInput
                style={styles.input}
-               placeholder="Masukkan password"
+               placeholder="Enter your password"
                value={password}
                onChangeText={setPassword}
                secureTextEntry
@@ -73,15 +73,15 @@ export default function LoginScreen() {
                {loading ? (
                   <ActivityIndicator color="#fff" />
                ) : (
-                  <Text style={styles.buttonText}>Masuk</Text>
+                  <Text style={styles.buttonText}>Sign In</Text>
                )}
             </TouchableOpacity>
 
             <View style={styles.footer}>
-               <Text style={styles.footerText}>Belum punya akun? </Text>
+               <Text style={styles.footerText}>Don't have an account? </Text>
                <Link href="/register" asChild>
                   <TouchableOpacity>
-                     <Text style={styles.linkText}>Daftar Sekarang</Text>
+                     <Text style={styles.linkText}>Register Now</Text>
                   </TouchableOpacity>
                </Link>
             </View>

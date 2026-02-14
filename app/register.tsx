@@ -22,25 +22,25 @@ export default function RegisterScreen() {
 
    const handleRegister = async () => {
       if (!name || !email || !password || !confirmPassword) {
-         Alert.alert("Error", "Semua field harus diisi");
+         Alert.alert("Error", "All fields are required");
          return;
       }
 
       if (password !== confirmPassword) {
-         Alert.alert("Error", "Konfirmasi password tidak cocok");
+         Alert.alert("Error", "Passwords do not match");
          return;
       }
 
       setLoading(true);
       try {
          await register({ name, email, password });
-         Alert.alert("Berhasil", "Akun berhasil dibuat. Silakan masuk.", [
+         Alert.alert("Success", "Account created successfully. Please sign in.", [
             { text: "OK", onPress: () => router.replace("/login") },
          ]);
       } catch (error: any) {
          Alert.alert(
-            "Registrasi Gagal",
-            error.response?.data?.message || "Terjadi kesalahan",
+            "Registration Failed",
+            error.response?.data?.message || "An error occurred",
          );
       } finally {
          setLoading(false);
@@ -50,17 +50,17 @@ export default function RegisterScreen() {
    return (
       <ScrollView contentContainerStyle={styles.container}>
          <View style={styles.header}>
-            <Text style={styles.title}>Buat Akun</Text>
+            <Text style={styles.title}>Create Account</Text>
             <Text style={styles.subtitle}>
-               Mulai perjalanan belajarmu sekarang
+               Start your learning journey today
             </Text>
          </View>
 
          <View style={styles.form}>
-            <Text style={styles.label}>Nama Lengkap</Text>
+            <Text style={styles.label}>Full Name</Text>
             <TextInput
                style={styles.input}
-               placeholder="Masukkan nama lengkap"
+               placeholder="Enter your full name"
                value={name}
                onChangeText={setName}
             />
@@ -68,7 +68,7 @@ export default function RegisterScreen() {
             <Text style={styles.label}>Email</Text>
             <TextInput
                style={styles.input}
-               placeholder="Masukkan email"
+               placeholder="Enter your email"
                value={email}
                onChangeText={setEmail}
                keyboardType="email-address"
@@ -78,16 +78,16 @@ export default function RegisterScreen() {
             <Text style={styles.label}>Password</Text>
             <TextInput
                style={styles.input}
-               placeholder="Masukkan password"
+               placeholder="Enter your password"
                value={password}
                onChangeText={setPassword}
                secureTextEntry
             />
 
-            <Text style={styles.label}>Konfirmasi Password</Text>
+            <Text style={styles.label}>Confirm Password</Text>
             <TextInput
                style={styles.input}
-               placeholder="Ulangi password"
+               placeholder="Repeat your password"
                value={confirmPassword}
                onChangeText={setConfirmPassword}
                secureTextEntry
@@ -101,15 +101,15 @@ export default function RegisterScreen() {
                {loading ? (
                   <ActivityIndicator color="#fff" />
                ) : (
-                  <Text style={styles.buttonText}>Daftar</Text>
+                  <Text style={styles.buttonText}>Register</Text>
                )}
             </TouchableOpacity>
 
             <View style={styles.footer}>
-               <Text style={styles.footerText}>Sudah punya akun? </Text>
+               <Text style={styles.footerText}>Already have an account? </Text>
                <Link href="/login" asChild>
                   <TouchableOpacity>
-                     <Text style={styles.linkText}>Masuk</Text>
+                     <Text style={styles.linkText}>Sign In</Text>
                   </TouchableOpacity>
                </Link>
             </View>

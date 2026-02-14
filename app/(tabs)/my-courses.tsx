@@ -174,7 +174,7 @@ export default function MyCoursesScreen() {
             <MaterialIcons name="search" size={20} color="#94a3b8" />
             <TextInput
                style={styles.searchInput}
-               placeholder="Cari kursus saya..."
+               placeholder="Search my courses..."
                value={search}
                onChangeText={setSearch}
             />
@@ -199,7 +199,7 @@ export default function MyCoursesScreen() {
                         !selectedCategory && styles.categoryTextSelected,
                      ]}
                   >
-                     Semua
+                     All
                   </Text>
                </TouchableOpacity>
                {categories.map(renderCategoryItem)}
@@ -226,7 +226,7 @@ export default function MyCoursesScreen() {
                         color="#e2e8f0"
                      />
                      <Text style={styles.emptyText}>
-                        Belum ada kursus yang diambil.
+                        No courses taken yet.
                      </Text>
                   </View>
                }

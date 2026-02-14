@@ -60,10 +60,10 @@ export default function DashboardScreen() {
       <ScrollView style={styles.container}>
          <View style={styles.header}>
             <Text style={styles.welcomeText}>
-               Halo, {user?.name || "User"}!
+               Hello, {user?.name || "User"}!
             </Text>
             <Text style={styles.subWelcomeText}>
-               Semangat belajar hari ini!
+               Keep up the spirit of learning today!
             </Text>
          </View>
 
@@ -71,24 +71,24 @@ export default function DashboardScreen() {
             <View style={styles.statBox}>
                <MaterialIcons name="play-lesson" size={24} color="#3b82f6" />
                <Text style={styles.statNumber}>{stats.enrolledCourses}</Text>
-               <Text style={styles.statLabel}>Kursus</Text>
+               <Text style={styles.statLabel}>Courses</Text>
             </View>
             <View style={styles.statBox}>
                <MaterialIcons name="check-circle" size={24} color="#10b981" />
                <Text style={styles.statNumber}>{stats.completedLessons}</Text>
-               <Text style={styles.statLabel}>Selesai</Text>
+               <Text style={styles.statLabel}>Completed</Text>
             </View>
             <View style={styles.statBox}>
                <MaterialIcons name="payments" size={24} color="#f59e0b" />
                <Text style={styles.statNumber}>{stats.totalTransactions}</Text>
-               <Text style={styles.statLabel}>Transaksi</Text>
+               <Text style={styles.statLabel}>Transactions</Text>
             </View>
          </View>
 
          <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>Kursus Rekomendasi</Text>
+            <Text style={styles.sectionTitle}>Recommended Courses</Text>
             <TouchableOpacity onPress={() => router.push("/(tabs)/explore")}>
-               <Text style={styles.seeAllText}>Lihat Semua</Text>
+               <Text style={styles.seeAllText}>See All</Text>
             </TouchableOpacity>
          </View>
 

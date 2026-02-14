@@ -17,10 +17,10 @@ export default function SettingsScreen() {
    const router = useRouter();
 
    const handleLogout = () => {
-      Alert.alert("Konfirmasi Keluar", "Apakah Anda yakin ingin keluar?", [
-         { text: "Batal", style: "cancel" },
+      Alert.alert("Logout Confirmation", "Are you sure you want to logout?", [
+         { text: "Cancel", style: "cancel" },
          {
-            text: "Keluar",
+            text: "Logout",
             style: "destructive",
             onPress: async () => {
                await logout();
@@ -39,29 +39,29 @@ export default function SettingsScreen() {
             <Text style={styles.userName}>{user?.name}</Text>
             <Text style={styles.userEmail}>{user?.email}</Text>
             <TouchableOpacity style={styles.editButton}>
-               <Text style={styles.editButtonText}>Edit Profil</Text>
+               <Text style={styles.editButtonText}>Edit Profile</Text>
             </TouchableOpacity>
          </View>
 
          <View style={styles.menuSection}>
-            <Text style={styles.sectionTitle}>Akun</Text>
-            <MenuItem icon="security" label="Keamanan" />
-            <MenuItem icon="notifications-none" label="Notifikasi" />
-            <MenuItem icon="language" label="Bahasa" value="Indonesia" />
+            <Text style={styles.sectionTitle}>Account</Text>
+            <MenuItem icon="security" label="Security" />
+            <MenuItem icon="notifications-none" label="Notifications" />
+            <MenuItem icon="language" label="Language" value="English" />
          </View>
 
          <View style={styles.menuSection}>
-            <Text style={styles.sectionTitle}>Dukungan</Text>
-            <MenuItem icon="help-outline" label="Pusat Bantuan" />
-            <MenuItem icon="info-outline" label="Tentang Aplikasi" />
+            <Text style={styles.sectionTitle}>Support</Text>
+            <MenuItem icon="help-outline" label="Help Center" />
+            <MenuItem icon="info-outline" label="About App" />
          </View>
 
          <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
             <MaterialIcons name="logout" size={20} color="#ef4444" />
-            <Text style={styles.logoutText}>Keluar Akun</Text>
+            <Text style={styles.logoutText}>Logout</Text>
          </TouchableOpacity>
 
-         <Text style={styles.version}>Versi 1.0.0</Text>
+         <Text style={styles.version}>Version 1.0.0</Text>
       </ScrollView>
    );
 }

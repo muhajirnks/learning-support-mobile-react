@@ -39,7 +39,7 @@ export default function CourseDetailScreen() {
          if (lessonsRes) setLessons(lessonsRes.data);
       } catch (error) {
          console.error(error);
-         Alert.alert("Error", "Gagal memuat detail kursus");
+         Alert.alert("Error", "Failed to load course details");
       } finally {
          setLoading(false);
       }
@@ -66,7 +66,7 @@ export default function CourseDetailScreen() {
       if (course?.transactionStatus === "pending") {
          Alert.alert(
             "Info",
-            "Pendaftaran Anda sedang menunggu konfirmasi admin.",
+            "Your registration is pending admin confirmation.",
          );
          return;
       }
@@ -77,14 +77,14 @@ export default function CourseDetailScreen() {
             course: courseId,
             paymentMethod: "Manual Transfer",
          });
-         Alert.alert("Sukses", "Berhasil mendaftar kursus!", [
+         Alert.alert("Success", "Successfully enrolled in the course!", [
             { text: "OK", onPress: () => fetchCourseDetail() },
          ]);
       } catch (error: any) {
          console.error(error);
          Alert.alert(
-            "Gagal",
-            error.response?.data?.message || "Terjadi kesalahan saat mendaftar",
+            "Failed",
+            error.response?.data?.message || "An error occurred during enrollment",
          );
       } finally {
          setEnrolling(false);
@@ -92,10 +92,10 @@ export default function CourseDetailScreen() {
    };
 
    const getEnrollButtonText = () => {
-      if (enrolling) return "Memproses...";
-      if (course?.transactionStatus === "pending") return "Menunggu Konfirmasi";
-      if (course?.transactionStatus === "success") return "Buka Kursus";
-      return "Daftar Sekarang";
+      if (enrolling) return "Processing...";
+      if (course?.transactionStatus === "pending") return "Waiting for Confirmation";
+      if (course?.transactionStatus === "success") return "Open Course";
+      return "Enroll Now";
    };
 
    if (loading) {
@@ -109,7 +109,7 @@ export default function CourseDetailScreen() {
    if (!course) {
       return (
          <View style={styles.centered}>
-            <Text>Kursus tidak ditemukan</Text>
+            <Text>Course not found</Text>
          </View>
       );
    }
@@ -129,27 +129,27 @@ export default function CourseDetailScreen() {
                <View style={styles.instructorRow}>
                   <MaterialIcons name="person" size={20} color="#64748b" />
                   <Text style={styles.instructorName}>
-                     Oleh: {course.instructor?.name || "Instructor"}
+                     By: {course.instructor?.name || "Instructor"}
                   </Text>
                </View>
 
                <View style={styles.priceContainer}>
-                  <Text style={styles.priceLabel}>Harga Kursus</Text>
+                  <Text style={styles.priceLabel}>Course Price</Text>
                   <Text style={styles.priceValue}>
                      {course.price === 0
-                        ? "Gratis"
+                        ? "Free"
                         : `Rp ${course.price.toLocaleString()}`}
                   </Text>
                </View>
 
                <View style={styles.section}>
-                  <Text style={styles.sectionTitle}>Tentang Kursus</Text>
+                  <Text style={styles.sectionTitle}>About Course</Text>
                   <Text style={styles.description}>{course.description}</Text>
                </View>
 
                <View style={styles.section}>
                   <Text style={styles.sectionTitle}>
-                     Apa yang akan dipelajari
+                     What you will learn
                   </Text>
                   {course.goals?.map((goal, index) => (
                      <View key={index} style={styles.goalItem}>
@@ -161,7 +161,7 @@ export default function CourseDetailScreen() {
 
                <View style={styles.section}>
                   <Text style={styles.sectionTitle}>
-                     Kurikulum ({lessons.length} Pelajaran)
+                     Curriculum ({lessons.length} Lessons)
                   </Text>
                   {lessons.map((lesson, index) => (
                      <View key={lesson._id} style={styles.lessonItem}>

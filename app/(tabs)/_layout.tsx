@@ -31,7 +31,7 @@ export default function TabLayout() {
          <Tabs.Screen
             name="explore"
             options={{
-               title: "Cari Kursus",
+               title: "Find Courses",
                tabBarLabel: "Explore",
                tabBarIcon: ({ color }) => (
                   <MaterialIcons size={28} name="search" color={color} />
@@ -41,8 +41,8 @@ export default function TabLayout() {
          <Tabs.Screen
             name="my-courses"
             options={{
-               title: "Kursus Saya",
-               tabBarLabel: "Kursus",
+               title: "My Courses",
+               tabBarLabel: "Courses",
                tabBarIcon: ({ color }) => (
                   <MaterialIcons
                      size={28}
@@ -55,8 +55,8 @@ export default function TabLayout() {
          <Tabs.Screen
             name="transactions"
             options={{
-               title: "Riwayat Transaksi",
-               tabBarLabel: "Transaksi",
+               title: "Transaction History",
+               tabBarLabel: "Transactions",
                tabBarIcon: ({ color }) => (
                   <MaterialIcons size={28} name="history" color={color} />
                ),
@@ -65,7 +65,7 @@ export default function TabLayout() {
          <Tabs.Screen
             name="settings"
             options={{
-               title: "Pengaturan",
+               title: "Settings",
                tabBarLabel: "Settings",
                tabBarIcon: ({ color }) => (
                   <MaterialIcons size={28} name="person" color={color} />

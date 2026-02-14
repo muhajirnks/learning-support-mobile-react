@@ -146,7 +146,7 @@ export default function ExploreScreen() {
             <View style={styles.priceRow}>
                <Text style={styles.price}>
                   {item.price === 0
-                     ? "Gratis"
+                     ? "Free"
                      : `Rp ${item.price.toLocaleString()}`}
                </Text>
                <View style={styles.ratingRow}>
@@ -164,7 +164,7 @@ export default function ExploreScreen() {
             <MaterialIcons name="search" size={20} color="#94a3b8" />
             <TextInput
                style={styles.searchInput}
-               placeholder="Cari kursus menarik..."
+               placeholder="Search interesting courses..."
                value={search}
                onChangeText={setSearch}
             />
@@ -189,7 +189,7 @@ export default function ExploreScreen() {
                         !selectedCategory && styles.categoryTextSelected,
                      ]}
                   >
-                     Semua
+                     All
                   </Text>
                </TouchableOpacity>
                {categories.map(renderCategoryItem)}
@@ -216,7 +216,7 @@ export default function ExploreScreen() {
                         color="#e2e8f0"
                      />
                      <Text style={styles.emptyText}>
-                        Tidak menemukan kursus yang sesuai.
+                        Didn't find a suitable course.
                      </Text>
                   </View>
                }
