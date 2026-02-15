@@ -5,10 +5,11 @@ import {
    ActivityIndicator,
    TouchableOpacity,
    View,
-   Text,
 } from "react-native";
 import { useEffect, useState } from "react";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { ThemedText } from "@/components/themed-text";
+import { Fonts } from "@/constants/theme";
 import {
    getCourseProgress,
    markAsCompleted,
@@ -79,14 +80,14 @@ export default function LearningScreen() {
       return (
          <View style={styles.centered}>
             <MaterialIcons name="error-outline" size={48} color="#ef4444" />
-            <Text style={styles.errorText}>
+            <ThemedText style={styles.errorText}>
                Course not found or failed to load progress.
-            </Text>
+            </ThemedText>
             <TouchableOpacity
                style={styles.backButton}
                onPress={() => router.back()}
             >
-               <Text style={styles.backButtonText}>Back</Text>
+               <ThemedText style={styles.backButtonText}>Back</ThemedText>
             </TouchableOpacity>
          </View>
       );
@@ -99,10 +100,10 @@ export default function LearningScreen() {
          <View style={styles.tabBar}>
             <View style={styles.progressHeader}>
                <View style={styles.progressInfo}>
-                  <Text style={styles.progressLabel}>Learning Progress</Text>
-                  <Text style={styles.progressValue}>
+                  <ThemedText style={styles.progressLabel}>Learning Progress</ThemedText>
+                  <ThemedText style={styles.progressValue}>
                      {progress.percentage}%
-                  </Text>
+                  </ThemedText>
                </View>
                <View style={styles.progressContainer}>
                   <View
@@ -112,10 +113,10 @@ export default function LearningScreen() {
                      ]}
                   />
                </View>
-               <Text style={styles.lessonCount}>
+               <ThemedText style={styles.lessonCount}>
                   {progress.completedLessons} of {progress.totalLessons}{" "}
                   lessons completed
-               </Text>
+               </ThemedText>
             </View>
             <ScrollView
                horizontal
@@ -153,7 +154,7 @@ export default function LearningScreen() {
                            />
                         )}
                      </View>
-                     <Text
+                     <ThemedText
                         style={[
                            styles.tabText,
                            activeLesson?._id === lesson._id &&
@@ -162,7 +163,7 @@ export default function LearningScreen() {
                         numberOfLines={1}
                      >
                         L{index + 1}: {lesson.title}
-                     </Text>
+                     </ThemedText>
                   </TouchableOpacity>
                ))}
             </ScrollView>
@@ -174,22 +175,22 @@ export default function LearningScreen() {
          >
             {activeLesson ? (
                <View style={styles.lessonContent}>
-                  <Text style={styles.lessonTitle}>{activeLesson.title}</Text>
+                  <ThemedText style={styles.lessonTitle}>{activeLesson.title}</ThemedText>
                   <View style={styles.videoPlaceholder}>
                      <MaterialIcons
                         name="play-circle-filled"
                         size={64}
                         color="#3b82f6"
                      />
-                     <Text style={styles.videoText}>
+                     <ThemedText style={styles.videoText}>
                         Video Player Placeholder
-                     </Text>
+                     </ThemedText>
                   </View>
-                  <Text style={styles.description}>{activeLesson.content}</Text>
+                  <ThemedText style={styles.description}>{activeLesson.content}</ThemedText>
                </View>
             ) : (
                <View style={styles.noActiveLesson}>
-                  <Text>Select a lesson to start learning</Text>
+                  <ThemedText>Select a lesson to start learning</ThemedText>
                </View>
             )}
          </ScrollView>
@@ -212,9 +213,9 @@ export default function LearningScreen() {
                   size={20}
                   color="#fff"
                />
-               <Text style={styles.completeButtonText}>
+               <ThemedText style={styles.completeButtonText}>
                   {activeLesson?.isCompleted ? "Completed" : "Mark as Completed"}
-               </Text>
+               </ThemedText>
             </TouchableOpacity>
          </View>
       </View>
@@ -250,12 +251,12 @@ const styles = StyleSheet.create({
    },
    progressLabel: {
       fontSize: 14,
-      fontWeight: "600",
+      fontFamily: Fonts.semiBold,
       color: "#1e293b",
    },
    progressValue: {
       fontSize: 14,
-      fontWeight: "700",
+      fontFamily: Fonts.bold,
       color: "#3b82f6",
    },
    progressContainer: {
@@ -272,6 +273,7 @@ const styles = StyleSheet.create({
    lessonCount: {
       fontSize: 12,
       color: "#64748b",
+      fontFamily: Fonts.regular,
    },
    tabContent: {
       paddingHorizontal: 15,
@@ -307,7 +309,7 @@ const styles = StyleSheet.create({
    tabText: {
       fontSize: 13,
       color: "#64748b",
-      fontWeight: "500",
+      fontFamily: Fonts.medium,
       maxWidth: 150,
    },
    tabTextActive: {
@@ -324,7 +326,7 @@ const styles = StyleSheet.create({
    },
    lessonTitle: {
       fontSize: 22,
-      fontWeight: "700",
+      fontFamily: Fonts.bold,
       color: "#1e293b",
       marginBottom: 20,
    },
@@ -344,11 +346,13 @@ const styles = StyleSheet.create({
       marginTop: 10,
       color: "#64748b",
       fontSize: 14,
+      fontFamily: Fonts.regular,
    },
    description: {
       fontSize: 16,
       lineHeight: 26,
       color: "#475569",
+      fontFamily: Fonts.regular,
    },
    noActiveLesson: {
       padding: 40,
@@ -374,7 +378,7 @@ const styles = StyleSheet.create({
    completeButtonText: {
       color: "#fff",
       fontSize: 16,
-      fontWeight: "600",
+      fontFamily: Fonts.semiBold,
       marginLeft: 10,
    },
    errorText: {
@@ -383,6 +387,7 @@ const styles = StyleSheet.create({
       color: "#64748b",
       textAlign: "center",
       marginBottom: 20,
+      fontFamily: Fonts.regular,
    },
    backButton: {
       paddingHorizontal: 20,
@@ -392,6 +397,6 @@ const styles = StyleSheet.create({
    },
    backButtonText: {
       color: "#fff",
-      fontWeight: "600",
+      fontFamily: Fonts.semiBold,
    },
 });

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
    View,
-   Text,
    TextInput,
    TouchableOpacity,
    StyleSheet,
@@ -10,6 +9,8 @@ import {
 } from "react-native";
 import { Link, useRouter } from "expo-router";
 import { login } from "@/services/auth.service";
+import { ThemedText } from "@/components/themed-text";
+import { Fonts } from "@/constants/theme";
 
 export default function LoginScreen() {
    const [email, setEmail] = useState("");
@@ -41,12 +42,12 @@ export default function LoginScreen() {
    return (
       <View style={styles.container}>
          <View style={styles.header}>
-            <Text style={styles.title}>Welcome Back!</Text>
-            <Text style={styles.subtitle}>Sign in to continue learning</Text>
+            <ThemedText style={styles.title} type="title">Welcome Back!</ThemedText>
+            <ThemedText style={styles.subtitle}>Sign in to continue learning</ThemedText>
          </View>
 
          <View style={styles.form}>
-            <Text style={styles.label}>Email</Text>
+            <ThemedText style={styles.label}>Email</ThemedText>
             <TextInput
                style={styles.input}
                placeholder="Enter your email"
@@ -56,7 +57,7 @@ export default function LoginScreen() {
                autoCapitalize="none"
             />
 
-            <Text style={styles.label}>Password</Text>
+            <ThemedText style={styles.label}>Password</ThemedText>
             <TextInput
                style={styles.input}
                placeholder="Enter your password"
@@ -73,15 +74,15 @@ export default function LoginScreen() {
                {loading ? (
                   <ActivityIndicator color="#fff" />
                ) : (
-                  <Text style={styles.buttonText}>Sign In</Text>
+                  <ThemedText style={styles.buttonText}>Sign In</ThemedText>
                )}
             </TouchableOpacity>
 
             <View style={styles.footer}>
-               <Text style={styles.footerText}>Don't have an account? </Text>
+               <ThemedText style={styles.footerText}>Don't have an account? </ThemedText>
                <Link href="/register" asChild>
                   <TouchableOpacity>
-                     <Text style={styles.linkText}>Register Now</Text>
+                     <ThemedText style={styles.linkText}>Register Now</ThemedText>
                   </TouchableOpacity>
                </Link>
             </View>
@@ -102,7 +103,6 @@ const styles = StyleSheet.create({
    },
    title: {
       fontSize: 28,
-      fontWeight: "800",
       color: "#1a1a1a",
       marginBottom: 8,
    },
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
    },
    label: {
       fontSize: 14,
-      fontWeight: "600",
+      fontFamily: Fonts.semiBold,
       color: "#333",
       marginBottom: -8,
    },
@@ -127,6 +127,7 @@ const styles = StyleSheet.create({
       paddingHorizontal: 16,
       fontSize: 16,
       backgroundColor: "#f9f9f9",
+      fontFamily: Fonts.regular,
    },
    button: {
       height: 50,
@@ -139,7 +140,7 @@ const styles = StyleSheet.create({
    buttonText: {
       color: "#fff",
       fontSize: 16,
-      fontWeight: "700",
+      fontFamily: Fonts.bold,
    },
    footer: {
       flexDirection: "row",
@@ -151,6 +152,6 @@ const styles = StyleSheet.create({
    },
    linkText: {
       color: "#3b82f6",
-      fontWeight: "700",
+      fontFamily: Fonts.bold,
    },
 });

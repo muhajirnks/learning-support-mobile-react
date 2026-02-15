@@ -39,18 +39,19 @@
             "backgroundColor": "#000000"
           }
         }
-      ]
+      ],
+      "expo-font"
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
     },
+    "owner": "amuhajirs",
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "2de49e0c-da4d-43d8-b47b-4440f8906c9c"
+        "projectId": "023c830f-467c-4278-9012-a6bf913c711c"
       }
-    },
-    "owner": "amuhajirs"
+    }
   }
 }

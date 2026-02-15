@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
    View,
-   Text,
    TextInput,
    TouchableOpacity,
    StyleSheet,
@@ -11,6 +10,8 @@ import {
 } from "react-native";
 import { Link, useRouter } from "expo-router";
 import { register } from "@/services/auth.service";
+import { ThemedText } from "@/components/themed-text";
+import { Fonts } from "@/constants/theme";
 
 export default function RegisterScreen() {
    const [name, setName] = useState("");
@@ -50,14 +51,14 @@ export default function RegisterScreen() {
    return (
       <ScrollView contentContainerStyle={styles.container}>
          <View style={styles.header}>
-            <Text style={styles.title}>Create Account</Text>
-            <Text style={styles.subtitle}>
+            <ThemedText style={styles.title} type="title">Create Account</ThemedText>
+            <ThemedText style={styles.subtitle}>
                Start your learning journey today
-            </Text>
+            </ThemedText>
          </View>
 
          <View style={styles.form}>
-            <Text style={styles.label}>Full Name</Text>
+            <ThemedText style={styles.label}>Full Name</ThemedText>
             <TextInput
                style={styles.input}
                placeholder="Enter your full name"
@@ -65,7 +66,7 @@ export default function RegisterScreen() {
                onChangeText={setName}
             />
 
-            <Text style={styles.label}>Email</Text>
+            <ThemedText style={styles.label}>Email</ThemedText>
             <TextInput
                style={styles.input}
                placeholder="Enter your email"
@@ -75,7 +76,7 @@ export default function RegisterScreen() {
                autoCapitalize="none"
             />
 
-            <Text style={styles.label}>Password</Text>
+            <ThemedText style={styles.label}>Password</ThemedText>
             <TextInput
                style={styles.input}
                placeholder="Enter your password"
@@ -84,7 +85,7 @@ export default function RegisterScreen() {
                secureTextEntry
             />
 
-            <Text style={styles.label}>Confirm Password</Text>
+            <ThemedText style={styles.label}>Confirm Password</ThemedText>
             <TextInput
                style={styles.input}
                placeholder="Repeat your password"
@@ -101,15 +102,15 @@ export default function RegisterScreen() {
                {loading ? (
                   <ActivityIndicator color="#fff" />
                ) : (
-                  <Text style={styles.buttonText}>Register</Text>
+                  <ThemedText style={styles.buttonText}>Register</ThemedText>
                )}
             </TouchableOpacity>
 
             <View style={styles.footer}>
-               <Text style={styles.footerText}>Already have an account? </Text>
+               <ThemedText style={styles.footerText}>Already have an account? </ThemedText>
                <Link href="/login" asChild>
                   <TouchableOpacity>
-                     <Text style={styles.linkText}>Sign In</Text>
+                     <ThemedText style={styles.linkText}>Sign In</ThemedText>
                   </TouchableOpacity>
                </Link>
             </View>
@@ -130,7 +131,6 @@ const styles = StyleSheet.create({
    },
    title: {
       fontSize: 28,
-      fontWeight: "800",
       color: "#1a1a1a",
       marginBottom: 8,
    },
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
    },
    label: {
       fontSize: 14,
-      fontWeight: "600",
+      fontFamily: Fonts.semiBold,
       color: "#333",
       marginBottom: -8,
    },
@@ -155,6 +155,7 @@ const styles = StyleSheet.create({
       paddingHorizontal: 16,
       fontSize: 16,
       backgroundColor: "#f9f9f9",
+      fontFamily: Fonts.regular,
    },
    button: {
       height: 50,
@@ -167,7 +168,7 @@ const styles = StyleSheet.create({
    buttonText: {
       color: "#fff",
       fontSize: 16,
-      fontWeight: "700",
+      fontFamily: Fonts.bold,
    },
    footer: {
       flexDirection: "row",
@@ -179,6 +180,6 @@ const styles = StyleSheet.create({
    },
    linkText: {
       color: "#3b82f6",
-      fontWeight: "700",
+      fontFamily: Fonts.bold,
    },
 });

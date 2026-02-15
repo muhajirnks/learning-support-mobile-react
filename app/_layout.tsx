@@ -4,8 +4,19 @@ import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 import { useEffect } from 'react';
 import { useAuthStore } from '@/store/useAuthStore';
+import * as SplashScreen from 'expo-splash-screen';
+import {
+  useFonts,
+  Poppins_400Regular,
+  Poppins_500Medium,
+  Poppins_600SemiBold,
+  Poppins_700Bold,
+} from '@expo-google-fonts/poppins';
 
 import { useColorScheme } from '@/hooks/use-color-scheme';
+
+// Prevent the splash screen from auto-hiding before asset loading is complete.
+SplashScreen.preventAutoHideAsync();
 
 export const unstable_settings = {
   anchor: '(tabs)',
@@ -13,17 +24,33 @@ export const unstable_settings = {
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
-  const { isAuthenticated, isLoaded, loadAuth } = useAuthStore();
+  const { isAuthenticated, isLoaded: isAuthLoaded, loadAuth } = useAuthStore();
   const segments = useSegments();
   const router = useRouter();
   const navigationState = useRootNavigationState();
+
+  const [fontsLoaded, fontError] = useFonts({
+    Poppins_400Regular,
+    Poppins_500Medium,
+    Poppins_600SemiBold,
+    Poppins_700Bold,
+  });
 
   useEffect(() => {
     loadAuth();
   }, []);
 
   useEffect(() => {
-    if (!isLoaded || !navigationState?.key) return;
+    if (fontsLoaded || fontError) {
+      // Hide the splash screen after the fonts have loaded (or an error was returned) and the UI is ready.
+      if (isAuthLoaded) {
+        SplashScreen.hideAsync();
+      }
+    }
+  }, [fontsLoaded, fontError, isAuthLoaded]);
+
+  useEffect(() => {
+    if (!isAuthLoaded || !navigationState?.key || !fontsLoaded) return;
 
     const inAuthGroup = segments[0] === 'login' || segments[0] === 'register';
 
@@ -32,10 +59,10 @@ export default function RootLayout() {
     } else if (isAuthenticated && inAuthGroup) {
       router.replace('/(tabs)');
     }
-  }, [isAuthenticated, isLoaded, segments, navigationState?.key]);
+  }, [isAuthenticated, isAuthLoaded, segments, navigationState?.key, fontsLoaded]);
 
-  if (!isLoaded) {
-    return null; // Atau bisa tampilkan SplashScreen
+  if (!isAuthLoaded || !fontsLoaded) {
+    return null;
   }
 
   return (

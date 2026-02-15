@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
    View,
-   Text,
    StyleSheet,
    ScrollView,
    TouchableOpacity,
@@ -13,6 +12,8 @@ import { useAuthStore } from "@/store/useAuthStore";
 import { useRouter } from "expo-router";
 import { getCourses, getUserStats } from "@/services/course.service";
 import { Course } from "@/services/types";
+import { ThemedText } from "@/components/themed-text";
+import { Fonts } from "@/constants/theme";
 
 export default function DashboardScreen() {
    const [stats, setStats] = useState({
@@ -59,36 +60,36 @@ export default function DashboardScreen() {
    return (
       <ScrollView style={styles.container}>
          <View style={styles.header}>
-            <Text style={styles.welcomeText}>
+            <ThemedText style={styles.welcomeText}>
                Hello, {user?.name || "User"}!
-            </Text>
-            <Text style={styles.subWelcomeText}>
+            </ThemedText>
+            <ThemedText style={styles.subWelcomeText}>
                Keep up the spirit of learning today!
-            </Text>
+            </ThemedText>
          </View>
 
          <View style={styles.statsContainer}>
             <View style={styles.statBox}>
                <MaterialIcons name="play-lesson" size={24} color="#3b82f6" />
-               <Text style={styles.statNumber}>{stats.enrolledCourses}</Text>
-               <Text style={styles.statLabel}>Courses</Text>
+               <ThemedText style={styles.statNumber}>{stats.enrolledCourses}</ThemedText>
+               <ThemedText style={styles.statLabel}>Courses</ThemedText>
             </View>
             <View style={styles.statBox}>
                <MaterialIcons name="check-circle" size={24} color="#10b981" />
-               <Text style={styles.statNumber}>{stats.completedLessons}</Text>
-               <Text style={styles.statLabel}>Completed</Text>
+               <ThemedText style={styles.statNumber}>{stats.completedLessons}</ThemedText>
+               <ThemedText style={styles.statLabel}>Completed</ThemedText>
             </View>
             <View style={styles.statBox}>
                <MaterialIcons name="payments" size={24} color="#f59e0b" />
-               <Text style={styles.statNumber}>{stats.totalTransactions}</Text>
-               <Text style={styles.statLabel}>Transactions</Text>
+               <ThemedText style={styles.statNumber}>{stats.totalTransactions}</ThemedText>
+               <ThemedText style={styles.statLabel}>Transactions</ThemedText>
             </View>
          </View>
 
          <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>Recommended Courses</Text>
+            <ThemedText style={styles.sectionTitle}>Recommended Courses</ThemedText>
             <TouchableOpacity onPress={() => router.push("/(tabs)/explore")}>
-               <Text style={styles.seeAllText}>See All</Text>
+               <ThemedText style={styles.seeAllText}>See All</ThemedText>
             </TouchableOpacity>
          </View>
 
@@ -112,12 +113,12 @@ export default function DashboardScreen() {
                         style={styles.thumbnail}
                      />
                      <View style={styles.courseInfo}>
-                        <Text style={styles.courseTitle} numberOfLines={1}>
+                        <ThemedText style={styles.courseTitle} numberOfLines={1}>
                            {course.title}
-                        </Text>
-                        <Text style={styles.instructorText}>
-                           {course.instructor?.name || "Instructor"}
-                        </Text>
+                        </ThemedText>
+                        <ThemedText style={styles.instructorText}>
+                           {course.instructor}
+                        </ThemedText>
                      </View>
                      <MaterialIcons
                         name="chevron-right"
@@ -145,7 +146,7 @@ const styles = StyleSheet.create({
    },
    welcomeText: {
       fontSize: 24,
-      fontWeight: "700",
+      fontFamily: Fonts.bold,
       color: "#1e293b",
    },
    subWelcomeText: {
@@ -172,7 +173,7 @@ const styles = StyleSheet.create({
    },
    statNumber: {
       fontSize: 18,
-      fontWeight: "700",
+      fontFamily: Fonts.bold,
       color: "#1e293b",
       marginTop: 8,
    },
@@ -191,13 +192,13 @@ const styles = StyleSheet.create({
    },
    sectionTitle: {
       fontSize: 18,
-      fontWeight: "600",
+      fontFamily: Fonts.semiBold,
       color: "#1e293b",
    },
    seeAllText: {
       color: "#3b82f6",
       fontSize: 14,
-      fontWeight: "500",
+      fontFamily: Fonts.medium,
    },
    recentList: {
       paddingHorizontal: 20,
@@ -223,7 +224,7 @@ const styles = StyleSheet.create({
    },
    courseTitle: {
       fontSize: 15,
-      fontWeight: "600",
+      fontFamily: Fonts.semiBold,
       color: "#1e293b",
    },
    instructorText: {

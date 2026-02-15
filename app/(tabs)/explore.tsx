@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
    View,
-   Text,
    StyleSheet,
    FlatList,
    Image,
@@ -15,6 +14,8 @@ import { useRouter } from "expo-router";
 import { getCourses } from "@/services/course.service";
 import { getCategories } from "@/services/category.service";
 import { Course, Category } from "@/services/types";
+import { ThemedText } from "@/components/themed-text";
+import { Fonts } from "@/constants/theme";
 
 export default function ExploreScreen() {
    const [courses, setCourses] = useState<Course[]>([]);
@@ -113,14 +114,14 @@ export default function ExploreScreen() {
                setSelectedCategory(isSelected ? null : category._id)
             }
          >
-            <Text
+            <ThemedText
                style={[
                   styles.categoryText,
                   isSelected && styles.categoryTextSelected,
                ]}
             >
                {category.name}
-            </Text>
+            </ThemedText>
          </TouchableOpacity>
       );
    };
@@ -137,21 +138,21 @@ export default function ExploreScreen() {
       >
          <Image source={{ uri: item.thumbnailUrl }} style={styles.thumbnail} />
          <View style={styles.courseInfo}>
-            <Text style={styles.courseTitle} numberOfLines={2}>
+            <ThemedText style={styles.courseTitle} numberOfLines={2}>
                {item.title}
-            </Text>
-            <Text style={styles.instructor}>
-               {item.instructor?.name || "Instructor"}
-            </Text>
+            </ThemedText>
+            <ThemedText style={styles.instructor}>
+               {item.instructor}
+            </ThemedText>
             <View style={styles.priceRow}>
-               <Text style={styles.price}>
+               <ThemedText style={styles.price}>
                   {item.price === 0
                      ? "Free"
                      : `Rp ${item.price.toLocaleString()}`}
-               </Text>
+               </ThemedText>
                <View style={styles.ratingRow}>
                   <MaterialIcons name="star" size={16} color="#f59e0b" />
-                  <Text style={styles.ratingText}>{item.rating || "4.5"}</Text>
+                  <ThemedText style={styles.ratingText}>{item.rating || "4.5"}</ThemedText>
                </View>
             </View>
          </View>
@@ -183,14 +184,14 @@ export default function ExploreScreen() {
                   ]}
                   onPress={() => setSelectedCategory(null)}
                >
-                  <Text
+                  <ThemedText
                      style={[
                         styles.categoryText,
                         !selectedCategory && styles.categoryTextSelected,
                      ]}
                   >
                      All
-                  </Text>
+                  </ThemedText>
                </TouchableOpacity>
                {categories.map(renderCategoryItem)}
             </ScrollView>
@@ -215,9 +216,9 @@ export default function ExploreScreen() {
                         size={64}
                         color="#e2e8f0"
                      />
-                     <Text style={styles.emptyText}>
+                     <ThemedText style={styles.emptyText}>
                         Didn't find a suitable course.
-                     </Text>
+                     </ThemedText>
                   </View>
                }
                onRefresh={() => fetchCourses(1, false)}
@@ -278,7 +279,7 @@ const styles = StyleSheet.create({
    categoryText: {
       fontSize: 13,
       color: "#64748b",
-      fontWeight: "500",
+      fontFamily: Fonts.medium,
    },
    categoryTextSelected: {
       color: "#fff",
@@ -288,6 +289,7 @@ const styles = StyleSheet.create({
       marginLeft: 10,
       fontSize: 14,
       color: "#1e293b",
+      fontFamily: Fonts.regular,
    },
    listContent: {
       padding: 15,
@@ -317,7 +319,7 @@ const styles = StyleSheet.create({
    },
    courseTitle: {
       fontSize: 15,
-      fontWeight: "700",
+      fontFamily: Fonts.bold,
       color: "#1e293b",
       lineHeight: 20,
    },
@@ -334,7 +336,7 @@ const styles = StyleSheet.create({
    },
    price: {
       fontSize: 14,
-      fontWeight: "700",
+      fontFamily: Fonts.bold,
       color: "#3b82f6",
    },
    ratingRow: {
@@ -343,7 +345,7 @@ const styles = StyleSheet.create({
    },
    ratingText: {
       fontSize: 12,
-      fontWeight: "600",
+      fontFamily: Fonts.semiBold,
       color: "#f59e0b",
       marginLeft: 4,
    },

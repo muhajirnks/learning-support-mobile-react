@@ -12,17 +12,11 @@ export interface Category {
    slug: string;
 }
 
-export interface Instructor {
-   _id: string;
-   name: string;
-   avatar?: string;
-}
-
 export interface Course {
    _id: string;
    title: string;
    description: string;
-   instructor: Instructor;
+   instructor: string;
    price: number;
    thumbnailUrl: string;
    goals: string[];

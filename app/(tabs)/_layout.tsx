@@ -2,7 +2,7 @@ import { Tabs } from "expo-router";
 import React from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useColorScheme } from "@/hooks/use-color-scheme";
-import { Colors } from "@/constants/theme";
+import { Colors, Fonts } from "@/constants/theme";
 
 export default function TabLayout() {
    const colorScheme = useColorScheme();
@@ -15,6 +15,12 @@ export default function TabLayout() {
             tabBarStyle: {
                height: 60,
                paddingBottom: 10,
+            },
+            tabBarLabelStyle: {
+               fontFamily: Fonts.medium,
+            },
+            headerTitleStyle: {
+               fontFamily: Fonts.bold,
             },
          }}
       >
